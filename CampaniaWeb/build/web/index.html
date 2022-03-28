@@ -13,262 +13,269 @@ and open the template in the editor.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <Style>
-    
-  label {
-    padding-right: 10px;
-    font-size: 1rem;
-}
-  
-    
-    
-    
-    
-    
-/*body, html{
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	font-family: 'Sniglet', cursive;
-}
-h1{
-	font-weight: normal;
-	font-size: 4em;
-	font-family: 'Raleway', sans-serif;
-	margin: 0 auto;
-	margin-top: 30px;
-	width: 500px;
-	color: #F90;
-	text-align: center;
-
-}
-
- //Animation webkit 
-@-webkit-keyframes myfirst
-{
-	0% {margin-left: -235px}
-	90% {margin-left: 100%;}
-	100% {margin-left: 100%;}
-}
-
-//Animation 
-@keyframes myfirst
-{
-	0% {margin-left: -235px}
-	70% {margin-left: 100%;}
-	100% {margin-left: 100%;}
-}
-
-.fish{
-	background-image: url('http://www.geertjanhendriks.nl/codepen/form/fish.png');
-	width: 235px;
-	height: 104px;
-	margin-left: -235px;
-	position: absolute;	
-	animation: myfirst 24s;
-	-webkit-animation: myfirst 24s;
-	animation-iteration-count: infinite;
-	-webkit-animation-iteration-count: infinite;
-	animation-timing-function: linear;
-	-webkit-animation-timing-function: linear;
-}
-
-#fish{
-	top: 120px;
-}
-
-#fish2{
-	top: 260px;
-	animation-delay: 12s;
-	-webkit-animation-delay: 12s;
-}
 
 
-header{
-	height: 160px;
-	background: url('http://www.geertjanhendriks.nl/codepen/form/golf.png') repeat-x bottom;
-}
+        body { 
+            margin: 0 auto; 
+            width: 700px;
 
-#form{
-	height: 100%;	
-	background-color: #98d4f3;
-	overflow: hidden;
-	position: relative;
-	
-}
-form{
-	margin: 0 auto;
-	width: 500px;
-	padding-top: 40px;
-	color: white;
-	position: relative;
-	
-	
-}
-label, input, textarea{
-	display: block;	
-}
-input, textarea{
-	width: 500px;	
-	border: none;
-	border-radius: 20px;
-	outline: none;
-	padding: 10px;
-	font-family: 'Sniglet', cursive;
-	font-size: 1em;
-	color: #676767;
-	transition: border 0.5s;
-	-webkit-transition: border 0.5s;
-	-moz-transition: border 0.5s;
-	-o-transition: border 0.5s;
-	border: solid 3px #98d4f3;	
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
-	
-}
-input:focus, textarea:focus{
-	border: solid 3px #77bde0;	
-}
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
 
-textarea{
-	height: 100px;	
-	resize: none; 
-	overflow: auto;
-}
-input[type="submit"]{
-	background-color: #F90;
-	color: white;
-	height: 50px;
-	cursor: pointer;
-	margin-top: 30px;
-	font-size: 1.29em;
-	font-family: 'Sniglet', cursive;
-	-webkit-transition: background-color 0.5s;
-	-moz-transition: background-color 0.5s;
-	-o-transition: background-color 0.5s;
-	transition: background-color 0.5s;
-}
-input[type="submit"]:hover{
-	background-color: #e58f0e;
-	
-}
-label{
-	font-size: 1.5em;
-	margin-top: 20px;
-	padding-left: 20px;
-}
-.formgroup, .formgroup-active, .formgroup-error{
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	background-size: 10.5%;
-	transition: background-image 0.7s;
-	-webkit-transition: background-image 0.7s;
-	-moz-transition: background-image 0.7s;
-	-o-transition: background-image 0.7s;
-	width: 566px;
-	padding-top: 2px;
-}
+        .impuesto{
+            
+            display: inline-block;
+            padding: 5px 5px 5px 0px; 
+            border: 5px 5px 5px 0px; 
+            margin: 5px 0px 5px 0px;
+            height: 150px;
+            background-color: tomato;
+        }
 
-.formgroup{
-	background-image: url('http://www.geertjanhendriks.nl/codepen/form/pixel.gif');	
-}
-.formgroup-active{
-	background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo.png');
-}
-.formgroup-error{
-	background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo-error.png');
-	color: red;
-}
-        
- */       
-   </style>  
-   
- </head>       
+        select{
+
+            position: relative;    
+            margin:30px 10px 10px 5px;   
+            float: top;  
+            
+        }
+
+        .check{
+           
+            display: inline-block;
+            padding: 5px 0px 5px 10px; 
+            border:5px 0px 5px 0px; 
+            margin: 5px 0px 5px 0px; 
+            height: 150px;
+            width: 458px;
+            background-color: slateblue;
+        }
+
+        .LocalRed{
+           
+            display: inline-block;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background: #dbdb8b;
+
+            padding: 5px 0px 5px 0px;
+            border:  solid black 5px;
+            margin: 5px 0px 5px 0px; 
+            height: 30px;
+            width: 690px;
  
-   <header>
-	<h2>Aplicación de Campaña Avendaño-Cruz</h2>
+        }
+
+        .boton{
+           
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #f4511e;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+
+        }
+
+        .boton:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .botonGenerar{
+           
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #7039ee;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+
+        }
+
+       .botonGenerar:hover {
+            background-color: #d66d27;
+            color: white;
+        }
+
+
+        #huey{
+
+            padding:0px 30px 0px 30px;
+
+        }
+
+        .botongenerarDiv{
+
+            align-items: center;
+            display: flex;
+            justify-content: center;
+
+
+        }
+
+        #checkboxL{
+
+          width: 10px;
+
+
+        }
+      
+
+        #calendario{
+        
+            margin: 0px 20px 50px 10px;   
+            float:bottom;  
+
+        }
+
+        .barras{
+
+            display: inline-block;
+ 
+            background: #efefef;
+
+            padding: 5px 0px 5px 0px;
+            border:  solid black 5px;
+            margin: 5px 0px 5px 0px; 
+            height: 100px;
+            width: 690px;
+
+
+        }
+     
+        progress {
+
+            padding: 5px;
+        
+
+        }
+
+        #barrita {
+
+            margin: 10px 0px 20px 30px;
+           
+        }
+
+      
+
+    </style>  
+   
+</head>       
+ 
+   <header >
+	<h4>Aplicación de Campaña Avendaño-Cruz</h4>
    </header>
  
-   <body>
-   <center>
-        <div id="form">
+    <body>
 
-            <form id="waterform" method="post">
+        <form  method="post">
 
+            <div  class="impuesto">    
+
+                <select name="Impuesto">
+                    <option value="value1">Impuesto Automotor</option>
+                    <option value="value2">Impuesto a las Embarcaciones</option>
+                    <option value="value3">Impuesto Urbano Edificado</option>
+                    <option value="value4">Impuesto Urbano Baldío</option>
+                    <option value="value5">Impuesto Rural</option>
+                    <option value="value6">Impuesto Complementario</option>
+                </select> <br><br>
+           
+                <input type="date" id="calendario" >
+
+            </div>    
                 
-                <div class="formgroup" id="name-form">
-                       <select name="Impuesto" class="formgroup">
-                        <option value="value1">Impuesto Automotor</option>
-                        <option value="value2" selected>Impuesto a las Embarcaciones</option>
-                        <option value="value3">Impuesto Urbano Edificado</option>
-                        <option value="value3">Impuesto Urbano Baldío</option>
-                        <option value="value3">Impuesto Rural</option>
-                        <option value="value3">Impuesto Complementario</option>
-                    </select><br><br>
+           
+            <div class="check">
+                
+                <label class="checkboxL"><input type="checkbox" id="cbox1" value="first_checkbox">Con Anual</label>
+
+                <label class="checkboxL"><input type="checkbox" id="cbox2" value="second_checkbox">Con Cabecera</label>
+
+                <label class="checkboxL"><input type="checkbox" id="cbox3" value="3r_checkbox">diferenciar mails</label><br>
+
+                <label class="checkboxL"><input type="checkbox" id="cbox4" value="4r_checkbox">Correccion Mayusculas (Razón Social)</label><br><br>
+               
+                <input type="number" id="Subscripciones" name="Subscripciones" /><label for="CantidadSubscripciones">  Cantidad de Subscripciones</label><br>
+
+                <input type="number" id="name" name="name" /><label for="name">  Cortar c/  </label>
                 
 
-                    <label><input type="checkbox" id="cbox1" value="first_checkbox">Con Anual</label><br>
-
-                    <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Con Cabecera</label>
-                  
-                    <label><input type="checkbox" id="cbox1" value="first_checkbox">diferenciar mails</label><br>
-
-                    <input type="checkbox" id="cbox2" value="second_checkbox"> <label for="cbox2">Correccion Mayusculas (Razón Social)</label><br><br>
-                       
-
-                    <label for="name">Cantidad de Subscripciones</label>
-                    <input type="text" id="name" name="name" /><br><br>
-                    
-                    <label for="name">Cortar c/ </label>
-                    <input type="text" id="name" name="name" /><br><br><br><br>
-
-                    
-                    <div>
-                        <input type="radio" id="huey" name="drone" value="A carpeta Local"
-                         checked>
-                        <label for="huey">A carpeta Local</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="dewey" name="drone" value="A Red">
-                        <label for="dewey">A Red</label>
-                    </div>
-                    
-            </div><br><br>
+            </div>
             
-            <div class="formgroup" id="name-form">
-                
-                 
-                        <label for="name">URL</label>
-                        <input type="text" id="name" name="name" /><br><br>
+            
+            <div   class="LocalRed">
 
-                        <input type="submit" value="Origen" />
-                        <input type="text" id="name" name="name" /><br><br><br><br>
+                <span id="huey">
+                    <input type="radio" id="hueey" name="drone" value="A carpeta Local"
+                    checked>
+                    <label for="huey">A carpeta Local</label>
+               </span>
+                <input type="radio" id="dewey" name="drone" value="A Red">
+                <label for="dewey">A Red</label>
 
-                        <input type="submit" value="Generar" /> <br><br>
-                    
-                    <label for="file">Subscripciones Leidas:</label>
+            </div>
 
-                    <progress id="file" max="100" value="70"> 70% </progress><br><br>
-                    
-                    <label for="file">Mail Generados:</label>
+         
 
-                    <progress id="file" max="100" value="70"> 70% </progress>
-                    
+            <div class="LocalRed">
+
+                <label for="name">URL</label>
+                <input type="text" id="name" name="name"  size="80"/>
+            </div>
+
+
+            <div>
+
+                <input type="submit" value="Origen" class="boton">
+                <input type="text" id="TxTname" name="TxTname" size="65" /><br><br>
+            </div>  
+
+            <div class="botongenerarDiv">
+                <input type="submit" value="Generar" class="botonGenerar"/> 
+            </div><br>
+
+            <div   class="barras">
+                <br>
+                <label for="file" id="barrita">Subscripciones Leidas:</label>
+
+                <progress id="file" max="100" value="70"> 70% </progress><br><br><br>
+
+                <label for="file" id="barrita">Mail Generados:</label>
+
+                <progress id="file" max="100" value="70"> 70% </progress>
+
             </div><br><br>     
-             
-            <div class="formgroup" id="name-form">
-              
+
+            <div>
+
                 <label for="name">Subscripciones leidas</label>
                 <input type="text" id="name" name="name" />
                 <label for="name">De</label>
                 <input type="text" id="name" name="name" /> 
-             </div><br><br> 
-            
-            
-            </form>
+                
+            </div> 
 
-        </div>
-     </center>   
+
+        </form>
+
+        
+      
+  
+      
     </body>
 </html>
