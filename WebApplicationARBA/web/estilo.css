@@ -17,6 +17,14 @@ and open the template in the editor.
    
 }
 
+
+.laberinto {
+  cursor: pointer;
+  border: 1px solid #939393;
+  padding: 1px 6px;
+  background-color: #efefef;
+}
+
 .o-navbar{
 align-items: baseline;
 box-sizing: border-box;

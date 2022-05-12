@@ -10,7 +10,7 @@ package Logica;
  */
 public class Proceso {
    
-    private String add= "hola";
+    private String add= "Hola ";
     
     public Proceso(String Nom){
     

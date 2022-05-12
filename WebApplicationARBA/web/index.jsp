@@ -115,11 +115,28 @@ nombre = pro.Getnombre();
                     </div>    
                 </div>
 
+                
+                <!--label {
+                    cursor: pointer;
+                    border: 1px solid #939393;
+                    padding: 1px 6px;
+                    background-color: #efefef;
+                  }
+                  <label for="file">
+                    Subir archivo
+                  </label>
+                
+                  <br/>
+                  <br/>
+                  <input id="file" type="file" /> -->
+
+          
                 <div class="LocalRed">
                     <div id="centrado"> 
+   
                         <label for="name" class="Tamaño-Letra"id="url">URL</label>
                         <input type="text" id="name" name="name"  size="80" class="Tamaño-Letra"><br><br>
-                        <input type="submit" value="Origen" class="Tamaño-Letra" class="boton">
+                        <input type="file" value="Origen" class="Tamaño-Letra" class="boton">
                         <input type="text" class="Tamaño-Letra" id="TxTname" name="TxTname" size="65" /><br><br>
                     </div>
                 </div>
