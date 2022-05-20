@@ -4,6 +4,7 @@
     Author     : oscar.avendano
 --%>
 
+
 <%@page import="javax.swing.JOptionPane"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,10 +22,15 @@ and open the template in the editor.
     <link rel="stylesheet" href="estilo.css">
 </head>
 
+
+
+
 <body>
 <header>
-</header>
     
+</header>
+   
+
     
 <form action ="index.jsp"  method="post" >
     
@@ -91,6 +97,7 @@ and open the template in the editor.
     
 <%@ page import = "Logica.Proceso"%>
 <%
+
 String cantSubscrip = request.getParameter("Subscripciones");
 String cortarCada = request.getParameter("Corte");
 String Impuesto = request.getParameter("impuestoTipo");
@@ -108,9 +115,11 @@ String Radio= request.getParameter("drone");
    String URL  =  Proc.GetURL();
 
 
+
+
 %>
 
-
+ <input type="hidden" id="variante" name="variante" value= "1"  > 
 
 
         <section class = "section_2">  
@@ -125,48 +134,61 @@ String Radio= request.getParameter("drone");
                         <label for="dewey" class="Tamaño-Letra">A Red</label>
                     </div>    
                 </div>
-                
-                
-                <div id="ArchivoDiv">   
+
+                <div id="ArchivoDi">   
                             
-                  <input type="file" accept=".txt" class="Tamaño-Letra" class="boton" name="path" id="Archivo"><br><br> 
+                  <input type="file" accept=".txt" class="Tamaño-Letra" class="boton" id="PATH" name="path" style= "background-color:blue"><br><br> 
                         
                 </div>
                 
+                
+                
+              
 
+                
                 <div class="LocalRed">
                     <div id="centrado"> 
                        <label for="name" class="Tamaño-Letra"id="url">URL</label>
                        <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%=  URL %>><br><br>
-                       
-                    
+                                 
                     </div>
                 </div>
+              
 
-                       
-                       
-                <%
-   
-                 String url = request.getParameter("URLtext");
-                 String path = request.getParameter("path");
-               
+                
+                <%               
+                  String url = request.getParameter("URLtext");
+                  String Path = request.getParameter("path");
+                
+                 boolean respuesta = false; 
+                 
+                 
+                 if (Path == null ) {Path = ""; }
                  if (cantSubscrip == null ) {cantSubscrip = "0"; }
                  if (CheckAnual == null ) {CheckAnual = ""; }
                  if (CheckCabecera == null ) {CheckCabecera = ""; }
                  if (ChecDiferenciar == null ) {ChecDiferenciar = ""; }
                  if (CheckMayus == null ) {CheckMayus = ""; }
                  if (Radio == null ) {Radio = ""; }
+                 
+           
+                 if (Path == ""){ JOptionPane.showMessageDialog(null, "path vacio");}else{
+             
+                  JOptionPane.showMessageDialog(null, Path);
                     
-                //if ((CheckAnual == "")&&(CheckCabecera == "")&& (ChecDiferenciar == "") && (CheckMayus == "") && (Radio == "")){
-
-                if(path == ""){JOptionPane.showMessageDialog(null, "Elija un archivo de Su escritorio para trabajar. ");}
-                else {
-               Proc.Generar(cantSubscrip,cortarCada, Impuesto, Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, path);  
-                }
+                  Proc.Generar(cantSubscrip,cortarCada, Impuesto, Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
+                  
+                   respuesta = Proc.getBuleano();
+                  
+                  }
+                 
+                
+                  
                 %>  
-               
+             
+                 <input type="text" id="bol" name="URLtext"  size="80" class="Tamaño-Letra"  value="<%= respuesta %>"><br><br>
 <!-- Sector pruebas 
-                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="Archivo: <%= path %>"><br><br>
+                 
                  <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cantidad: <%= cantSubscrip %>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" cortar cada:  <%= cortarCada %>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>
@@ -179,17 +201,19 @@ String Radio= request.getParameter("drone");
 ///////////////////////////-->         
                  
                  
-          
                        
                 <div class="botongenerarDiv">
-                    <input class="Tamaño-Letra" type="submit" value="Generar" class="botonGenerar"/> 
+                    
+                   <button class="Tamaño-Letra"  type="submit" onclick="Checkeo()"  class="botonGenerar"> Generar </button>
+                    
+                    
+                  <!--   <input class="Tamaño-Letra" type="submit" onclick="Checkeo()" value="Generar" class="botonGenerar"/>-->
                 </div><br>
 
 
             </div><br>
         </section>
 
-         
         <section class ="section_3">      
 
             <div id="bottom">
@@ -208,22 +232,39 @@ String Radio= request.getParameter("drone");
 
                 <div id="Resultados">
                     <label for="name" class="Tamaño-Letra">Subscripciones leidas</label>
-                    <input type="text" id="name" class="Tamaño-Letra"name="name" value ="<%= cantSubscrip%> " />
+                    <input type="text" id="name" class="Tamaño-Letra"name="name"  />
                     <label for="name" class="Tamaño-Letra">De</label>
-                    <input type="text" id="name" class="Tamaño-Letra" name="name" /> 
+                    <input type="text" id="name" class="Tamaño-Letra" name="name" value ="<%= cantSubscrip%> "/> 
                 </div> 
 
             </div>
 
         </section>
-</form>
+</form>     
         <footer>
-                        
-            <!--
-  
-                       
-                      -->
+
         </footer>
 </body>
+
+<script>
+    Archivo = document.getElementById("PATH");
+    bool =  document.getElementById("bol");
+    
+    
+    function Checkeo(){
+     if(Archivo.value == ""){alert("No se seleccionó Archivo");}
+    
+    }
+
+   if (bool.value == "true") {
+
+    ArchivoDi.innerHTML='';
+   ArchivoDi.innerHTML=' <input type="file" accept=".txt"  id="PATH" name="path" style= "background-color:red"; ><br><br> ';
+
+    } 
+
+
+</script>
+
 </html>
 

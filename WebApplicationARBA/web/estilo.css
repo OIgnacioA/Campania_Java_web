@@ -140,16 +140,7 @@ header, footer{
     padding-bottom: 1rem;
 }
 
-#ArchivoDiv{
-     
-    Display:flex; 
-    Justify-content: space-around;
-    width:330px;
-    height: 20px;
-    border: 2rem solid rgb(15, 233, 227);
-    
-   
-}
+
 #ChBox{
 
  margin:1rem;

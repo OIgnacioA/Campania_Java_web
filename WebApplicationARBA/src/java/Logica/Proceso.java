@@ -127,7 +127,7 @@ public class Proceso {
         
     private String FraseQR = "";
     private String QRContenido = "" ;     
-    
+    private boolean res ; 
     
 ////////////////////////////////////////// WEB : 
     
@@ -148,7 +148,6 @@ public class Proceso {
     String Escritorio = System.getProperty("user.home") + "/desktop";
 
 public void Origen_ () {
-
 
     txtOrigen = Escritorio +"/"+ Npath ;
     
@@ -184,7 +183,7 @@ public void Origen_ () {
         this.CheckMayus= CheckMayus ;
         this.Radio= Radio ;
         
-
+         getBuleano();
         
         boolean seguir = false;
       
@@ -221,7 +220,10 @@ public void Origen_ () {
           
            ///////////////////////////////////////////////////////////////////////////////////////
          Origen_ ();  // en reemplazo del Origen_ActionPerformed en original. 
-         Procesar();
+       
+        
+                 JOptionPane.showMessageDialog(null, "generar");
+         //Procesar();
 
         }else {
             
@@ -230,6 +232,22 @@ public void Origen_ () {
         
     }    
 
+    public boolean getBuleano(){
+    
+        
+ 
+        
+      res = true; 
+    
+    return res;
+    
+    }
+    
+    
+    
+    
+    
+    
 public void Procesar() {
      
       Thread hilo1=new Thread(){
@@ -338,13 +356,18 @@ public void Procesar() {
 
         
         
-        
-         JOptionPane.showMessageDialog(null,"holas");
+        JOptionPane.showMessageDialog(null, "------------------->");
+         
 
             while (line != null) {
 
               LeerLinea(line);
 
+              
+              JOptionPane.showMessageDialog(null, "------------------->2");
+              
+              
+              
                 if (mailAux == "") {
                     mailAux = mail;
                     razonsocialAux = razonsocial;
