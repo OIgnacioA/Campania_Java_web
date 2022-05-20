@@ -4,6 +4,7 @@
     Author     : oscar.avendano
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -49,36 +50,37 @@ and open the template in the editor.
 
                 <div id="opcionesImpustos">
 
-                    <select class="Tamaño-Letra" id="select">
-                        <option value="value1">Impuesto Automotor</option>
-                        <option value="value2">Impuesto a las Embarcaciones</option>
-                        <option value="value3">Impuesto Urbano Edificado</option>
-                        <option value="value4">Impuesto Urbano Baldío</option>
-                        <option value="value5">Impuesto Rural</option>
-                        <option value="value6">Impuesto Complementario</option>
+                    <select class="Tamaño-Letra" id="select" name = "impuestoTipo">
+                        <option value="Impuesto Automotor">Impuesto Automotor</option>
+                        <option value="Impuesto a las Embarcaciones">Impuesto a las Embarcaciones</option>
+                        <option value="Impuesto Urbano Edificado">Impuesto Urbano Edificado</option>
+                        <option value="Impuesto Urbano Baldio">Impuesto Urbano Baldío</option>
+                        <option value="Impuesto Rural">Impuesto Rural</option>
+                        <option value="Impuesto Complementario">Impuesto Complementario</option>
                     </select> <br><br>
-                    <input type="date" class="Tamaño-Letra" id="fechas">
+                    
+                    <input type="date" class="Tamaño-Letra" id="fechas" name ="fecha">
 
                 </div>
 
 
                 <div id="ChBox">
 
-                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox1" value="first_checkbox">Con Anual</label>
+                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox1" value="conAnual" name= "conAnual">Con Anual</label>
 
-                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox2" value="second_checkbox">Con Cabecera</label>
+                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox2" value="conCabecera" name= "conCabecera">Con Cabecera</label>
 
-                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox3" value="3r_checkbox">diferenciar mails</label><br>
+                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox3" value="diferenciar mails" name= "diferenciarMails" >diferenciar mails</label><br>
 
-                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox4" value="4r_checkbox">Correccion Mayusculas (Razón Social)</label><br><br>
+                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox4" value="correccion Mayusculas" name= "correccionMayusculas">Correccion Mayusculas (Razón Social)</label><br><br>
 
                     
                     
-            <input type="text" id="Subscripciones" name="Palabra" ><label for="CantidadSubscripciones" class="Tamaño-Letra">  Cantidad de Subscripciones</label><br>
+            <input type="text" id="Subscripciones" name="Subscripciones" value="150000"><label for="CantidadSubscripciones" class="Tamaño-Letra" >  Cantidad de Subscripciones</label><br>
 
                    
                     
-                    <input type="number" id="Corte" name="name" ><label for="name" class="Tamaño-Letra">  Cortar c/  </label>
+                    <input type="number" id="Corte" name="Corte" value="15000"><label for="name" class="Tamaño-Letra">  Cortar c/  </label>
 
                 </div>
 
@@ -86,16 +88,25 @@ and open the template in the editor.
             </div> 
 
         </section>   
+    
 <%@ page import = "Logica.Proceso"%>
-
 <%
-String nombre = request.getParameter("Palabra");
+String cantSubscrip = request.getParameter("Subscripciones");
+String cortarCada = request.getParameter("Corte");
+String Impuesto = request.getParameter("impuestoTipo");
+String Fecha = request.getParameter("fecha");
+String CheckAnual= request.getParameter("conAnual");
+String CheckCabecera= request.getParameter("conCabecera");
+String ChecDiferenciar= request.getParameter("diferenciarMails");
+String CheckMayus= request.getParameter("correccionMayusculas");
+String Radio= request.getParameter("drone");
     
     
- Proceso pro = new Proceso(nombre);
+ Proceso Proc = new Proceso(); 
+    
+   Proc.ImpuestoComboBox(Impuesto);
+   String URL  =  Proc.GetURL();
 
-
-nombre = pro.Getnombre();
 
 %>
 
@@ -114,33 +125,62 @@ nombre = pro.Getnombre();
                         <label for="dewey" class="Tamaño-Letra">A Red</label>
                     </div>    
                 </div>
-
                 
-                <!--label {
-                    cursor: pointer;
-                    border: 1px solid #939393;
-                    padding: 1px 6px;
-                    background-color: #efefef;
-                  }
-                  <label for="file">
-                    Subir archivo
-                  </label>
                 
-                  <br/>
-                  <br/>
-                  <input id="file" type="file" /> -->
+                <div id="ArchivoDiv">   
+                            
+                  <input type="file" accept=".txt" class="Tamaño-Letra" class="boton" name="path" id="Archivo"><br><br> 
+                        
+                </div>
+                
 
-          
                 <div class="LocalRed">
                     <div id="centrado"> 
-   
-                        <label for="name" class="Tamaño-Letra"id="url">URL</label>
-                        <input type="text" id="name" name="name"  size="80" class="Tamaño-Letra"><br><br>
-                        <input type="file" value="Origen" class="Tamaño-Letra" class="boton">
-                        <input type="text" class="Tamaño-Letra" id="TxTname" name="TxTname" size="65" /><br><br>
+                       <label for="name" class="Tamaño-Letra"id="url">URL</label>
+                       <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%=  URL %>><br><br>
+                       
+                    
                     </div>
                 </div>
 
+                       
+                       
+                <%
+   
+                 String url = request.getParameter("URLtext");
+                 String path = request.getParameter("path");
+               
+                 if (cantSubscrip == null ) {cantSubscrip = "0"; }
+                 if (CheckAnual == null ) {CheckAnual = ""; }
+                 if (CheckCabecera == null ) {CheckCabecera = ""; }
+                 if (ChecDiferenciar == null ) {ChecDiferenciar = ""; }
+                 if (CheckMayus == null ) {CheckMayus = ""; }
+                 if (Radio == null ) {Radio = ""; }
+                    
+                //if ((CheckAnual == "")&&(CheckCabecera == "")&& (ChecDiferenciar == "") && (CheckMayus == "") && (Radio == "")){
+
+                if(path == ""){JOptionPane.showMessageDialog(null, "Elija un archivo de Su escritorio para trabajar. ");}
+                else {
+               Proc.Generar(cantSubscrip,cortarCada, Impuesto, Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, path);  
+                }
+                %>  
+               
+<!-- Sector pruebas 
+                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="Archivo: <%= path %>"><br><br>
+                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cantidad: <%= cantSubscrip %>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" cortar cada:  <%= cortarCada %>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="fecha:  <%=  Fecha%>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="anual: <%=  CheckAnual%>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cabecera:  <%=  CheckCabecera%>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="Diferenciar: <%=  ChecDiferenciar%>"><br><br>
+                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="matusculas: <%=  CheckMayus%>"><br><br>
+             
+///////////////////////////-->         
+                 
+                 
+          
+                       
                 <div class="botongenerarDiv">
                     <input class="Tamaño-Letra" type="submit" value="Generar" class="botonGenerar"/> 
                 </div><br>
@@ -149,11 +189,11 @@ nombre = pro.Getnombre();
             </div><br>
         </section>
 
+         
         <section class ="section_3">      
 
             <div id="bottom">
-
-
+           
                 <div   class="barras">
                     <br>
                     <label for="file" id="barrita" class="Tamaño-Letra">Subscripciones Leidas:</label>
@@ -168,7 +208,7 @@ nombre = pro.Getnombre();
 
                 <div id="Resultados">
                     <label for="name" class="Tamaño-Letra">Subscripciones leidas</label>
-                    <input type="text" id="name" class="Tamaño-Letra"name="name" value ="<%= nombre%> " />
+                    <input type="text" id="name" class="Tamaño-Letra"name="name" value ="<%= cantSubscrip%> " />
                     <label for="name" class="Tamaño-Letra">De</label>
                     <input type="text" id="name" class="Tamaño-Letra" name="name" /> 
                 </div> 
@@ -178,7 +218,11 @@ nombre = pro.Getnombre();
         </section>
 </form>
         <footer>
-
+                        
+            <!--
+  
+                       
+                      -->
         </footer>
 </body>
 </html>

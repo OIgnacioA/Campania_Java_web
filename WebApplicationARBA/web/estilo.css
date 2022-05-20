@@ -18,6 +18,8 @@ and open the template in the editor.
 }
 
 
+
+
 .laberinto {
   cursor: pointer;
   border: 1px solid #939393;
@@ -138,7 +140,16 @@ header, footer{
     padding-bottom: 1rem;
 }
 
-
+#ArchivoDiv{
+     
+    Display:flex; 
+    Justify-content: space-around;
+    width:330px;
+    height: 20px;
+    border: 2rem solid rgb(15, 233, 227);
+    
+   
+}
 #ChBox{
 
  margin:1rem;
@@ -159,7 +170,7 @@ header, footer{
 }
 
 
-#name, #TxTname {
+#name, #TxTname, #Archivo {
     max-width: 80%;
 }
 
