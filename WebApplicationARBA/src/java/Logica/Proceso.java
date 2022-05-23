@@ -145,15 +145,15 @@ public class Proceso {
     Boolean Red = false;
     String Npath ="";
     
-    String Escritorio = System.getProperty("user.home") + "/desktop";
+    String Escritorio = System.getProperty("user.home") + "\\desktop";
 
 public void Origen_ () {
 
-    txtOrigen = Escritorio +"/"+ Npath ;
+    txtOrigen = Escritorio +"\\"+ Npath ;
     
     fullPath = txtOrigen ;
 
-
+   
 
     /*////Peso, barras y textbox informativos: ///////////////////////// 
 
@@ -209,20 +209,27 @@ public void Origen_ () {
             ImpuestoV = Impuesto;  
             
             fullPath = txtOrigen ;
-
+            
+            
+            
+ Origen_ ();  // en reemplazo del Origen_ActionPerformed en original. 
+ 
            ////////////////////////////////////////////////////////////////////////////////////////
 
-            if (Radio.equals("A Red"))  {
-               txtDestino = ObtenerNombre(txtOrigen);
-            }
+           // if (Radio.equals("A Red") || Radio.equals("A carpeta Local"))  {
+            
+                
+                    
+                txtDestino = ObtenerNombre(txtOrigen);
+         //   }
 
           
            ///////////////////////////////////////////////////////////////////////////////////////
-         Origen_ ();  // en reemplazo del Origen_ActionPerformed en original. 
+        
        
         
-                 JOptionPane.showMessageDialog(null, "trabajando.");
-         //Procesar();
+                 
+     Procesar();
 
         }else {
             
@@ -258,7 +265,7 @@ public void Procesar() {
         String mailLinea = ".";
         String datosTodosObjetos =".";
         String ultimoMail = ".";
-        
+        int contt = 0 ; 
        
         
         BufferedReader filAS = null;
@@ -296,14 +303,21 @@ public void Procesar() {
 
             if (Local == true)
             {
+                
+                
                ArgumentoOpcionCheck1 =  CarpetaDestino + "\\" + nombreArchivoGenerado;
                ArgumentoOpcionCheck2 = fullPath + "-Informe.txt";
+               
+          
             }
             else if (Red == true)
             {
                 ArgumentoreaderNuevo = directorioDestino + "\\" + nombreArchivoGenerado;
                 ArgumentoOpcionCheck1 = ArgumentoreaderNuevo;
                 ArgumentoOpcionCheck2 = directorioDestino + "\\" + txtDestino + "-Informe.txt";
+                
+   
+                
              System.out.println ("-------------------------XXXX----------" + ArgumentoOpcionCheck1);
             }
  
@@ -313,7 +327,8 @@ public void Procesar() {
 
         try{
             SW = new FileWriter(ArgumentoOpcionCheck1,true);
-        } catch (Exception e){System.out.println("Error de lectura del fichero");}
+        } catch (Exception e){System.out.println("Error de lectura del fichero 1");}
+        JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + ArgumentoOpcionCheck1);
        
          ContadorCSV++;
         
@@ -335,21 +350,15 @@ public void Procesar() {
         try{          
             file = new BufferedReader (new FileReader(txtOrigen));
             line = file.readLine();
-        }catch(Exception e) {System.out.println("Error de lectura del fichero");}
+        }catch(Exception e) { JOptionPane.showMessageDialog(null, "Error de lectura del fichero 2");}
 
-        
-        
-        JOptionPane.showMessageDialog(null, "------------------->");
-         
+     
 
             while (line != null) {
-
+       
               LeerLinea(line);
-
               
-              JOptionPane.showMessageDialog(null, "------------------->2");
-              
-              
+              JOptionPane.showMessageDialog(null,"mail------"+ mail);
               
                 if (mailAux == "") {
                     mailAux = mail;
@@ -357,23 +366,8 @@ public void Procesar() {
                     cuitAux = cuit;
                 }
 
-                
 
-               //////////////////////////////QR/////////////////////////// 
-
-               
-               
-                //QR QRnuevo = new QR(); ------- Este llamado está global, para que se instancie solo una vez, y pueda reconocerse desde cualquier parte. 
-                //Encoder Encoder = new Encoder(); ----same... 
-  
-               // QRnuevo.generador(medioPago); ---- Este llamado está en Armar datos. Asi medio de pago tiene un valor para darle a generador. 
-             
-                
-                
-                
-               ////////////////////////////////////////////////////////////// 
-                
-              // ArmarDatosMail();
+              ArmarDatosMail();
                 
                 if ((!mail.equals(mailAux)) || (!razonsocial.equals(razonsocialAux))) {
 
@@ -422,11 +416,16 @@ public void Procesar() {
                                 
                                 if (Local == true)
                                 {
+                                    
                                     ArgumentoOpcionCheck1 = CarpetaDestino + "\\" + nombreArchivoGenerado;
+                                    
+                                    
 
                                 }
                                 else if (Red == true)
                                 {
+                                    
+                                   
                                   ArgumentoreaderNuevo = directorioDestino + "\\" + nombreArchivoGenerado;
                                   ArgumentoOpcionCheck1 = ArgumentoreaderNuevo;
 
@@ -438,7 +437,8 @@ public void Procesar() {
                                 try {
                                     SW = new FileWriter(ArgumentoOpcionCheck1, true);
                                 } catch (Exception e) {
-                                    System.out.println("Error de lectura del fichero");
+                                    System.out.println("Error de lectura del fichero 3");
+                                    JOptionPane.showMessageDialog(null, "Error de lectura del fichero 3");
                                 }
                                     ContadorCSV++;
                                     
@@ -488,7 +488,8 @@ public void Procesar() {
                 try {
                     line = file.readLine();
                 } catch (Exception e) {
-                    System.out.println("Error de lectura del fichero");
+                    System.out.println("Error de lectura del fichero 4");
+                    JOptionPane.showMessageDialog(null, "Error de lectura del fichero 4");
                 }
               
             }//while
@@ -925,6 +926,9 @@ private void EscribirCabecera(FileWriter pSw){
 
 private void LeerLinea(String line){
            
+    
+    
+    
     switch (Impuesto)
     {
         case "Impuesto Automotor":
@@ -973,8 +977,13 @@ private void LeerLinea(String line){
         case "Impuesto Rural":
         {
                        
+            
+            
             mail = ((line.substring(0, 255).toLowerCase()).replaceAll(" ","") );
-            objeto = (line.substring(255,266).replaceAll(" ",""));                                                    
+            
+            
+            System.out.println("------------------->>>>>"+mail);
+            objeto = (line.substring(255,266).replaceAll(" ",""));          
             objetoFormateado = formatearObjetoInmobiliario(objeto);
             razonsocial = trimEnd(line.substring(266,326));   
             porcentaje = "";  
@@ -986,7 +995,7 @@ private void LeerLinea(String line){
             debitoCredito = line.substring(392, 393).replaceAll(" ","");                           
             buenContribuyente = line.substring(393, 394).replaceAll(" ","");  
             
-            
+             JOptionPane.showMessageDialog(null,"-----------Mail: " + mail);
           
             System.out.println("----***"+debitoCredito);
             
@@ -1213,7 +1222,7 @@ private void ArmarDatosMail(){
                 
                 datosObjeto += "</tr>";
                 
-                System.out.println(datosObjeto);
+               // System.out.println(datosObjeto);
             }
         }
     }
