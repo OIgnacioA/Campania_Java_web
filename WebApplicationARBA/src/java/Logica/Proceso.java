@@ -182,8 +182,7 @@ public void Origen_ () {
         this.ChecDiferenciar= ChecDiferenciar ;
         this.CheckMayus= CheckMayus ;
         this.Radio= Radio ;
-        
-         getBuleano();
+      
         
         boolean seguir = false;
       
@@ -222,7 +221,7 @@ public void Origen_ () {
          Origen_ ();  // en reemplazo del Origen_ActionPerformed en original. 
        
         
-                 JOptionPane.showMessageDialog(null, "generar");
+                 JOptionPane.showMessageDialog(null, "trabajando.");
          //Procesar();
 
         }else {
@@ -232,22 +231,6 @@ public void Origen_ () {
         
     }    
 
-    public boolean getBuleano(){
-    
-        
- 
-        
-      res = true; 
-    
-    return res;
-    
-    }
-    
-    
-    
-    
-    
-    
 public void Procesar() {
      
       Thread hilo1=new Thread(){
@@ -1330,7 +1313,7 @@ private void ArmarDatosMail(){
 
                 default:
                 {
-                        // cuotas = new List<string>() { "0" };
+                       URLText1 = "Selecinar un Impuesto.";
                        break;
                  }       
 
@@ -1347,6 +1330,7 @@ private void ArmarDatosMail(){
 
     
 public String  GetURL(){
+
 
  return URLText1 ;
 

@@ -22,21 +22,16 @@ and open the template in the editor.
     <link rel="stylesheet" href="estilo.css">
 </head>
 
-
-
-
 <body>
-<header>
-    
-</header>
-   
 
+    <header>
+    </header>
+   
+    <form action ="index.jsp"  method="post" >
     
-<form action ="index.jsp"  method="post" >
-    
+
         <section class="prueba">
             <nav class="c-navbar">
-
                 <div class="etiqueta">
 
                     <p class="o-navbar"> ARBA 
@@ -44,18 +39,15 @@ and open the template in the editor.
                 </p>
                 </div>
             </nav>
-
-
-
-
-
         </section>
+
+
         <section class="Section_1"> <!--la etiqueta section tiene uso como: contenedor general en el uso del Display:flex; -->
 
             <div  id="top">    
 
                 <div id="opcionesImpustos">
-
+                  
                     <select class="Tamaño-Letra" id="select" name = "impuestoTipo">
                         <option value="Impuesto Automotor">Impuesto Automotor</option>
                         <option value="Impuesto a las Embarcaciones">Impuesto a las Embarcaciones</option>
@@ -64,63 +56,49 @@ and open the template in the editor.
                         <option value="Impuesto Rural">Impuesto Rural</option>
                         <option value="Impuesto Complementario">Impuesto Complementario</option>
                     </select> <br><br>
-                    
-                    <input type="date" class="Tamaño-Letra" id="fechas" name ="fecha">
 
+                    <input type="date" class="Tamaño-Letra" id="fechas" name ="fecha">
                 </div>
 
 
                 <div id="ChBox">
 
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox1" value="conAnual" name= "conAnual">Con Anual</label>
-
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox2" value="conCabecera" name= "conCabecera">Con Cabecera</label>
-
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox3" value="diferenciar mails" name= "diferenciarMails" >diferenciar mails</label><br>
-
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox4" value="correccion Mayusculas" name= "correccionMayusculas">Correccion Mayusculas (Razón Social)</label><br><br>
 
-                    
-                    
-            <input type="text" id="Subscripciones" name="Subscripciones" value="150000"><label for="CantidadSubscripciones" class="Tamaño-Letra" >  Cantidad de Subscripciones</label><br>
-
-                   
-                    
+                    <input type="text" id="Subscripciones" name="Subscripciones" value="150000"><label for="CantidadSubscripciones" class="Tamaño-Letra" >  Cantidad de Subscripciones</label><br>
                     <input type="number" id="Corte" name="Corte" value="15000"><label for="name" class="Tamaño-Letra">  Cortar c/  </label>
 
                 </div>
 
-
             </div> 
 
         </section>   
-    
-<%@ page import = "Logica.Proceso"%>
-<%
 
-String cantSubscrip = request.getParameter("Subscripciones");
-String cortarCada = request.getParameter("Corte");
-String Impuesto = request.getParameter("impuestoTipo");
-String Fecha = request.getParameter("fecha");
-String CheckAnual= request.getParameter("conAnual");
-String CheckCabecera= request.getParameter("conCabecera");
-String ChecDiferenciar= request.getParameter("diferenciarMails");
-String CheckMayus= request.getParameter("correccionMayusculas");
-String Radio= request.getParameter("drone");
-    
-    
- Proceso Proc = new Proceso(); 
-    
-   Proc.ImpuestoComboBox(Impuesto);
-   String URL  =  Proc.GetURL();
+        
+        <%@ page import = "Logica.Proceso"%>
+        <%
+
+            String cantSubscrip = request.getParameter("Subscripciones");
+            String cortarCada = request.getParameter("Corte");
+            String Impuesto = request.getParameter("impuestoTipo");
+            String Fecha = request.getParameter("fecha");
+            String CheckAnual= request.getParameter("conAnual");
+            String CheckCabecera= request.getParameter("conCabecera");
+            String ChecDiferenciar= request.getParameter("diferenciarMails");
+            String CheckMayus= request.getParameter("correccionMayusculas");
+            String Radio= request.getParameter("drone");
 
 
+            Proceso Proc = new Proceso(); 
 
+            Proc.ImpuestoComboBox(Impuesto);
+            String URL  =  Proc.GetURL();
 
-%>
-
- <input type="hidden" id="variante" name="variante" value= "1"  > 
-
+        %>
+        
 
         <section class = "section_2">  
 
@@ -135,34 +113,30 @@ String Radio= request.getParameter("drone");
                     </div>    
                 </div>
 
+
                 <div id="ArchivoDi">   
                             
-                  <input type="file" accept=".txt" class="Tamaño-Letra" class="boton" id="PATH" name="path" style= "background-color:blue"><br><br> 
+                  <input type="file" accept=".txt" class="Tamaño-Letra" class="boton" id="PATH" name="path" style= "background-color: rgb(174, 231, 235) "><br><br> 
                         
                 </div>
                 
-                
-                
-              
+                <button class="Tamaño-Letra"  type="submit" onclick="limpiarInputfile(ArchivoDi)"  class="botonGenerar"> Limpiar File </button> 
 
-                
+
+
                 <div class="LocalRed">
                     <div id="centrado"> 
                        <label for="name" class="Tamaño-Letra"id="url">URL</label>
-                       <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%=  URL %>><br><br>
+                       <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%= URL%>><br><br>
                                  
                     </div>
                 </div>
               
-
-                
+         
                 <%               
                   String url = request.getParameter("URLtext");
-                  String Path = request.getParameter("path");
-                
-                 boolean respuesta = false; 
-                 
-                 
+                  String Path = request.getParameter("path"); 
+   
                  if (Path == null ) {Path = ""; }
                  if (cantSubscrip == null ) {cantSubscrip = "0"; }
                  if (CheckAnual == null ) {CheckAnual = ""; }
@@ -172,21 +146,77 @@ String Radio= request.getParameter("drone");
                  if (Radio == null ) {Radio = ""; }
                  
            
-                 if (Path == ""){ JOptionPane.showMessageDialog(null, "path vacio");}else{
-             
-                  JOptionPane.showMessageDialog(null, Path);
-                    
+                 if (Path == ""){}else{
+               
                   Proc.Generar(cantSubscrip,cortarCada, Impuesto, Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
-                  
-                   respuesta = Proc.getBuleano();
                   
                   }
                  
-                
-                  
                 %>  
              
-                 <input type="text" id="bol" name="URLtext"  size="80" class="Tamaño-Letra"  value="<%= respuesta %>"><br><br>
+                <div class="botongenerarDiv">
+                    
+                   <button class="Tamaño-Letra"  type="submit"  onclick="Checkeo()" class="botonGenerar"> Generar </button>
+
+                </div><br>
+
+
+            </div><br>
+        </section><!--  2  -->
+    </form> 
+                
+                
+    <section class ="section_3">      
+
+        <div id="bottom">
+        
+            <div   class="barras">
+                <br>
+                <label for="file" id="barrita" class="Tamaño-Letra">Subscripciones Leidas:</label>
+
+                <progress id="file" class="Tamaño-Letra"max="100" value="70"> 70% </progress><br><br><br>
+
+                <label for="file" id="barrita" class="Tamaño-Letra">Mail Generados:</label>
+
+                <progress id="file"  class="Tamaño-Letra"max="100" value="70"> 70% </progress>
+
+            </div><br><br>     
+
+            <div id="Resultados">
+                <label for="name" class="Tamaño-Letra">Subscripciones leidas</label>
+                <input type="text" id="name" class="Tamaño-Letra"name="name"  />
+                <label for="name" class="Tamaño-Letra">De</label>
+                <input type="text" id="name" class="Tamaño-Letra" name="name" value ="<%= cantSubscrip%> "/> 
+            </div> 
+
+        </div>
+
+    </section>
+    
+    <footer>
+
+    </footer>
+</body>
+
+<script>
+    
+    Archivo = document.getElementById("PATH");
+
+    function Checkeo(){
+     if(Archivo.value == ""){alert("No se seleccionó Archivo");}
+    
+    }
+
+    function limpiarInputfile(id) {
+        var input = $('#' + id);
+        var clon = input.clone();  // Crear un clon del elemento original
+        input.replaceWith(clon);   // sustituir el original por el clon
+        alert("limpiar");
+    }
+
+</script>
+
+
 <!-- Sector pruebas 
                  
                  <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cantidad: <%= cantSubscrip %>"><br><br>
@@ -198,73 +228,9 @@ String Radio= request.getParameter("drone");
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="Diferenciar: <%=  ChecDiferenciar%>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="matusculas: <%=  CheckMayus%>"><br><br>
              
-///////////////////////////-->         
-                 
-                 
-                       
-                <div class="botongenerarDiv">
-                    
-                   <button class="Tamaño-Letra"  type="submit" onclick="Checkeo()"  class="botonGenerar"> Generar </button>
-                    
-                    
-                  <!--   <input class="Tamaño-Letra" type="submit" onclick="Checkeo()" value="Generar" class="botonGenerar"/>-->
-                </div><br>
+///////////////////////////-->  
 
 
-            </div><br>
-        </section>
-
-        <section class ="section_3">      
-
-            <div id="bottom">
-           
-                <div   class="barras">
-                    <br>
-                    <label for="file" id="barrita" class="Tamaño-Letra">Subscripciones Leidas:</label>
-
-                    <progress id="file" class="Tamaño-Letra"max="100" value="70"> 70% </progress><br><br><br>
-
-                    <label for="file" id="barrita" class="Tamaño-Letra">Mail Generados:</label>
-
-                    <progress id="file"  class="Tamaño-Letra"max="100" value="70"> 70% </progress>
-
-                </div><br><br>     
-
-                <div id="Resultados">
-                    <label for="name" class="Tamaño-Letra">Subscripciones leidas</label>
-                    <input type="text" id="name" class="Tamaño-Letra"name="name"  />
-                    <label for="name" class="Tamaño-Letra">De</label>
-                    <input type="text" id="name" class="Tamaño-Letra" name="name" value ="<%= cantSubscrip%> "/> 
-                </div> 
-
-            </div>
-
-        </section>
-</form>     
-        <footer>
-
-        </footer>
-</body>
-
-<script>
-    Archivo = document.getElementById("PATH");
-    bool =  document.getElementById("bol");
-    
-    
-    function Checkeo(){
-     if(Archivo.value == ""){alert("No se seleccionó Archivo");}
-    
-    }
-
-   if (bool.value == "true") {
-
-    ArchivoDi.innerHTML='';
-   ArchivoDi.innerHTML=' <input type="file" accept=".txt"  id="PATH" name="path" style= "background-color:red"; ><br><br> ';
-
-    } 
-
-
-</script>
 
 </html>
 
