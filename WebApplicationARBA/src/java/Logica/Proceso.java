@@ -144,6 +144,8 @@ public class Proceso {
     Boolean Local = false; 
     Boolean Red = false;
     String Npath ="";
+    String Hard = "C:\\Users\\sehent\\Desktop\\10.txt-Parte-1.csv"; 
+    
     
     String Escritorio = System.getProperty("user.home") + "\\desktop";
 
@@ -169,13 +171,12 @@ public void Origen_ () {
    
     
     
-    public void Generar(String cantSubscrip,String Corte, String Impuesto, String Fecha, String CheckAnual,String CheckCabecera,String ChecDiferenciar,String CheckMayus,String Radio, String URLtext, String path) {      
+    public void Generar(String cantSubscrip,String Corte, String Fecha, String CheckAnual,String CheckCabecera,String ChecDiferenciar,String CheckMayus,String Radio, String URLtext, String path) {      
         
         Npath = path; 
         URLText = URLtext;
         this.cantSubscrip = cantSubscrip;
         this.Corte = Corte;
-        this.Impuesto =  Impuesto;
         this.Fecha = Fecha;
         this.CheckAnual= CheckAnual;
         this.CheckCabecera= CheckCabecera;
@@ -326,9 +327,9 @@ public void Procesar() {
         
 
         try{
-            SW = new FileWriter(ArgumentoOpcionCheck1,true);
+            SW = new FileWriter(Hard,true);  // ArgumentoOpcionCheck1
         } catch (Exception e){System.out.println("Error de lectura del fichero 1");}
-        JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + ArgumentoOpcionCheck1);
+        JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + Hard);
        
          ContadorCSV++;
         
@@ -435,7 +436,7 @@ public void Procesar() {
                                 
 
                                 try {
-                                    SW = new FileWriter(ArgumentoOpcionCheck1, true);
+                                    SW = new FileWriter(Hard, true);
                                 } catch (Exception e) {
                                     System.out.println("Error de lectura del fichero 3");
                                     JOptionPane.showMessageDialog(null, "Error de lectura del fichero 3");
@@ -927,12 +928,12 @@ private void EscribirCabecera(FileWriter pSw){
 private void LeerLinea(String line){
            
     
-    
+   // JOptionPane.showMessageDialog(null,"---Impuesto: " + Impuesto);
     
     switch (Impuesto)
     {
-        case "Impuesto Automotor":
-        case "Impuesto a las Embarcaciones":
+        case "1": //Impuesto Automotor
+        case "2": //Impuesto a las Embarcaciones
         {
                         
             mail = ((line.substring(0, 255).toLowerCase()).replaceAll(" ","") );
@@ -972,12 +973,12 @@ private void LeerLinea(String line){
 
               break;
         }
-        case "Impuesto Urbano Edificado":
-        case "Impuesto Urbano Baldío":
-        case "Impuesto Rural":
+        case "3": //Impuesto Urbano Edificado
+        case "4": // Impuesto Urbano Baldío
+        case "5": //Impuesto Rural
         {
                        
-            
+             
             
             mail = ((line.substring(0, 255).toLowerCase()).replaceAll(" ","") );
             
@@ -995,7 +996,7 @@ private void LeerLinea(String line){
             debitoCredito = line.substring(392, 393).replaceAll(" ","");                           
             buenContribuyente = line.substring(393, 394).replaceAll(" ","");  
             
-             JOptionPane.showMessageDialog(null,"-----------Mail: " + mail);
+            
           
             System.out.println("----***"+debitoCredito);
             
@@ -1015,12 +1016,13 @@ private void LeerLinea(String line){
                                     
               break;
         }
-        case "Impuesto Complementario":
+        case "6":// Impuesto Complementario
         {
              LeerLineaNuevo(line);
               break;
         }
         default:
+           
               break;
         }
 
@@ -1228,17 +1230,54 @@ private void ArmarDatosMail(){
     }
  
 
-    public void ImpuestoComboBox(String Impuesto) {
+    public void ImpuestoComboBox(String Imp) {
+       
+     /*   
+        
+     
+        switch (Imp){
+            
+        case "1": 
+        {
+            Impuesto="Impuesto Automotor";
+             break;
+        }
+        case "2": 
+        {
+            Impuesto="Impuesto a las Embarcaciones";
+             break;
+        }
+        case "3": 
+        {
+            Impuesto="Impuesto Urbano Edificado";
+             break;
+        }
+        case "4": 
+        {
+            Impuesto="Impuesto Urbano Baldío";
+              break;
+        }
+        case "5": 
+        {
+            Impuesto="Impuesto Rural";
+             break;
+        }
+        case "6":
+        {
+            Impuesto="Impuesto Complementario";
+            break;
+        }
+        default:
+        { 
+            break;
+        }           
+        }
 
-        
-         System.out.println("------"+Escritorio);
-        
-        
+       */
         directorioOrigen = ""; 
         FraccionImpuesto = Impuesto;
         
-        
-       // directorioOrigen =  
+               // directorioOrigen =  
         directorioDestino = "C:\\Users\\sehent\\Documents\\Destino";
         
         

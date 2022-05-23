@@ -49,12 +49,12 @@ and open the template in the editor.
                 <div id="opcionesImpustos">
                   
                     <select class="Tamaño-Letra" id="select" name = "impuestoTipo">
-                        <option value="Impuesto Automotor">Impuesto Automotor</option>
-                        <option value="Impuesto a las Embarcaciones">Impuesto a las Embarcaciones</option>
-                        <option value="Impuesto Urbano Edificado">Impuesto Urbano Edificado</option>
-                        <option value="Impuesto Urbano Baldio">Impuesto Urbano Baldío</option>
-                        <option value="Impuesto Rural">Impuesto Rural</option>
-                        <option value="Impuesto Complementario">Impuesto Complementario</option>
+                        <option value="1">Impuesto Automotor</option>
+                        <option value="2">Impuesto a las Embarcaciones</option>
+                        <option value="3">Impuesto Urbano Edificado</option>
+                        <option value="4">Impuesto Urbano Baldío</option>
+                        <option value="5">Impuesto Rural</option>
+                        <option value="6">Impuesto Complementario</option>
                     </select> <br><br>
 
                     <input type="date" class="Tamaño-Letra" id="fechas" name ="fecha">
@@ -148,7 +148,7 @@ and open the template in the editor.
            
                  if (Path == ""){}else{
                
-                  Proc.Generar(cantSubscrip,cortarCada, Impuesto, Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
+                  Proc.Generar(cantSubscrip,cortarCada,Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
                   
                   }
                  
@@ -160,6 +160,7 @@ and open the template in the editor.
 
                 </div><br>
 
+                           <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>
 
             </div><br>
         </section><!--  2  -->
@@ -221,7 +222,7 @@ and open the template in the editor.
                  
                  <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cantidad: <%= cantSubscrip %>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" cortar cada:  <%= cortarCada %>"><br><br>
-                <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>
+     
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="fecha:  <%=  Fecha%>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="anual: <%=  CheckAnual%>"><br><br>
                 <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value="cabecera:  <%=  CheckCabecera%>"><br><br>
