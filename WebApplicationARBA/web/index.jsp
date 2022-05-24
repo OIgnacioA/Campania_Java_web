@@ -64,42 +64,19 @@ and open the template in the editor.
                 <div id="ChBox">
 
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox1" value="conAnual" name= "conAnual">Con Anual</label>
-                    <label class="Tamaño-Letra"><input type="checkbox" id="cbox2" value="conCabecera" name= "conCabecera">Con Cabecera</label>
+                    <label class="Tamaño-Letra"><input type="checkbox" checked="checked" id="cbox2" value="conCabecera" name= "conCabecera">Con Cabecera</label>
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox3" value="diferenciar mails" name= "diferenciarMails" >diferenciar mails</label><br>
                     <label class="Tamaño-Letra"><input type="checkbox" id="cbox4" value="correccion Mayusculas" name= "correccionMayusculas">Correccion Mayusculas (Razón Social)</label><br><br>
 
-                    <input type="text" id="Subscripciones" name="Subscripciones" value="150000"><label for="CantidadSubscripciones" class="Tamaño-Letra" >  Cantidad de Subscripciones</label><br>
-                    <input type="number" id="Corte" name="Corte" value="15000"><label for="name" class="Tamaño-Letra">  Cortar c/  </label>
+                    <input type="text" id="Subscripciones" name="Subscripciones" value="10"><label for="CantidadSubscripciones" class="Tamaño-Letra" >  Cantidad de Subscripciones</label><br>
+                    <input type="number" id="Corte" name="Corte" value="10"><label for="name" class="Tamaño-Letra">  Cortar c/  </label>
 
                 </div>
 
             </div> 
 
         </section>   
-
         
-        <%@ page import = "Logica.Proceso"%>
-        <%
-
-            String cantSubscrip = request.getParameter("Subscripciones");
-            String cortarCada = request.getParameter("Corte");
-            String Impuesto = request.getParameter("impuestoTipo");
-            String Fecha = request.getParameter("fecha");
-            String CheckAnual= request.getParameter("conAnual");
-            String CheckCabecera= request.getParameter("conCabecera");
-            String ChecDiferenciar= request.getParameter("diferenciarMails");
-            String CheckMayus= request.getParameter("correccionMayusculas");
-            String Radio= request.getParameter("drone");
-
-
-            Proceso Proc = new Proceso(); 
-
-            Proc.ImpuestoComboBox(Impuesto);
-            String URL  =  Proc.GetURL();
-
-        %>
-        
-
         <section class = "section_2">  
 
             <div id="middle">
@@ -120,49 +97,82 @@ and open the template in the editor.
                         
                 </div>
                 
-                <button class="Tamaño-Letra"  type="submit" onclick="limpiarInputfile(ArchivoDi)"  class="botonGenerar"> Limpiar File </button> 
+                <button class="Tamaño-Letra"  type="submit" onclick="limpiarInputfile(ArchivoDi)"  class="botonGenerar"> Limpiar File </button> <br>
 
 
+            <div id="centrado"> 
+              <label class="Tamaño-Letra">Asignar URL:</label>
+              <input type="text" id="name" name="URLtextManual"  size="80" class="Tamaño-Letra"  value=""><br><br>
+            </div>
+                
+        <%@ page import = "Logica.Proceso"%>
+        
+        <% 
+            
+            Proceso Proc = new Proceso(); 
 
-                <div class="LocalRed">
-                    <div id="centrado"> 
-                       <label for="name" class="Tamaño-Letra"id="url">URL</label>
-                       <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%= URL%>><br><br>
-                                 
-                    </div>
-                </div>
+            String Impuesto = request.getParameter("impuestoTipo"); 
+            String cantSubscrip = request.getParameter("Subscripciones");
+            String cortarCada = request.getParameter("Corte");
+            String Fecha = request.getParameter("fecha");
+            String CheckAnual= request.getParameter("conAnual");
+            String CheckCabecera= request.getParameter("conCabecera");
+            String ChecDiferenciar= request.getParameter("diferenciarMails");
+            String CheckMayus= request.getParameter("correccionMayusculas");
+            String Radio= request.getParameter("drone");
+            String Path = request.getParameter("path"); 
+            String url ="";
+
+           if (Path == null ) {Path = ""; }
+
+                ///Impuesto:URL
+                if (Path == ""){}else{
+                
+                    Proc.ImpuestoComboBox(Impuesto);
+                    url  =  Proc.GetURL();
+
+                   ///si se selecciona una nueva URL, esta debe tomarse. 
+
+                    String asignar = request.getParameter("URLtextManual");
+
+                    if (asignar != ""){
+                      url = asignar;
+                    }
+
+                   if (cantSubscrip == null ) {cantSubscrip = "0"; }
+                   if (CheckAnual == null ) {CheckAnual = ""; }
+                   if (CheckCabecera == null ) {CheckCabecera = ""; }
+                   if (ChecDiferenciar == null ) {ChecDiferenciar = ""; }
+                   if (CheckMayus == null ) {CheckMayus = ""; }
+                   if (Radio == null ) {Radio = ""; }
+                   
               
-         
-                <%               
-                  String url = request.getParameter("URLtext");
-                  String Path = request.getParameter("path"); 
-   
-                 if (Path == null ) {Path = ""; }
-                 if (cantSubscrip == null ) {cantSubscrip = "0"; }
-                 if (CheckAnual == null ) {CheckAnual = ""; }
-                 if (CheckCabecera == null ) {CheckCabecera = ""; }
-                 if (ChecDiferenciar == null ) {ChecDiferenciar = ""; }
-                 if (CheckMayus == null ) {CheckMayus = ""; }
-                 if (Radio == null ) {Radio = ""; }
-                 
+
+            Proc.Generar(cantSubscrip,cortarCada,Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
+
+            }
+
+           %>  
+          
+           <!--<input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>-->
            
-                 if (Path == ""){}else{
-               
-                  Proc.Generar(cantSubscrip,cortarCada,Fecha, CheckAnual, CheckCabecera, ChecDiferenciar, CheckMayus, Radio, url, Path);
-                  
-                  }
-                 
-                %>  
-             
-                <div class="botongenerarDiv">
-                    
-                   <button class="Tamaño-Letra"  type="submit"  onclick="Checkeo()" class="botonGenerar"> Generar </button>
+          
 
-                </div><br>
+                  <div class="LocalRed">
+                    <div id="centrado"> 
+                        <label for="name" class="Tamaño-Letra"id="url">URL</label>
+                        <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=<%= url%>><br><br>          
+                    </div>
+                </div>        
 
-                           <input type="text" id="name" name="URLtext"  size="80" class="Tamaño-Letra"  value=" impuesto: <%= Impuesto%>"><br><br>
+  
+           <div class="botongenerarDiv">
 
-            </div><br>
+             <button class="Tamaño-Letra"  type="submit"  onclick="Checkeo()" class="botonGenerar"> Generar </button>
+
+           </div><br>
+
+           </div><br>
         </section><!--  2  -->
     </form> 
                 

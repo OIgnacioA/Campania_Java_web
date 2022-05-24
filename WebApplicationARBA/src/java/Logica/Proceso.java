@@ -30,6 +30,11 @@ import java.io.FileWriter;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 
 
@@ -144,7 +149,9 @@ public class Proceso {
     Boolean Local = false; 
     Boolean Red = false;
     String Npath ="";
-    String Hard = "C:\\Users\\sehent\\Desktop\\10.txt-Parte-1.csv"; 
+    String Hard = "C:\\Users\\oscar.avendano\\Desktop\\10.txt-Parte-1.csv"; 
+            
+                //"C:\\Users\\sehent\\Desktop\\10.txt-Parte-1.csv"; 
     
     
     String Escritorio = System.getProperty("user.home") + "\\desktop";
@@ -171,73 +178,49 @@ public void Origen_ () {
    
     
     
-    public void Generar(String cantSubscrip,String Corte, String Fecha, String CheckAnual,String CheckCabecera,String ChecDiferenciar,String CheckMayus,String Radio, String URLtext, String path) {      
-        
-        Npath = path; 
-        URLText = URLtext;
-        this.cantSubscrip = cantSubscrip;
-        this.Corte = Corte;
-        this.Fecha = Fecha;
-        this.CheckAnual= CheckAnual;
-        this.CheckCabecera= CheckCabecera;
-        this.ChecDiferenciar= ChecDiferenciar ;
-        this.CheckMayus= CheckMayus ;
-        this.Radio= Radio ;
-      
-        
-        boolean seguir = false;
-      
-        if ("A carpeta Local".equals(Radio)){
-        
-            Local = true; 
+public void Generar(String cantSubscrip,String Corte, String Fecha, String CheckAnual,String CheckCabecera,String ChecDiferenciar,String CheckMayus,String Radio, String URLtext, String path) {      
 
-        }else if ("A Red".equals(Radio)){
-    
-            Red = true; 
-        } 
+    Npath = path; 
+    URLText = URLtext;
+    this.cantSubscrip = cantSubscrip;
+    this.Corte = Corte;
+    this.Fecha = Fecha;
+    this.CheckAnual= CheckAnual;
+    this.CheckCabecera= CheckCabecera;
+    this.ChecDiferenciar= ChecDiferenciar ;
+    this.CheckMayus= CheckMayus ;
+    this.Radio= Radio ;
 
-            try
-            {
-                int cantidad = Integer.parseInt(cantSubscrip);
+    boolean seguir = false;
 
-                if (cantidad != 0){seguir = true;}
-             
-                
-            }catch (Exception e) {}
+    if ("A carpeta Local".equals(Radio)){
 
-        if (seguir){
-                
-            ImpuestoV = Impuesto;  
-            
-            fullPath = txtOrigen ;
-            
-            
-            
- Origen_ ();  // en reemplazo del Origen_ActionPerformed en original. 
- 
-           ////////////////////////////////////////////////////////////////////////////////////////
+        Local = true; 
 
-           // if (Radio.equals("A Red") || Radio.equals("A carpeta Local"))  {
-            
-                
-                    
-                txtDestino = ObtenerNombre(txtOrigen);
-         //   }
+    }else if ("A Red".equals(Radio)){
 
-          
-           ///////////////////////////////////////////////////////////////////////////////////////
-        
-       
-        
-                 
-     Procesar();
+        Red = true; 
+    } 
 
-        }else {
-            
-            JOptionPane.showMessageDialog(null, " Ingrese la cantidad de suscripciones a procesar. ", " Boleta Electrónica ", JOptionPane.ERROR_MESSAGE);  
-        }      
-        
-    }    
+    try{      
+        int cantidad = Integer.parseInt(cantSubscrip);
+        if (cantidad != 0){seguir = true;}
+    }catch (Exception e) {}
+
+    if (seguir){
+
+        ImpuestoV = Impuesto;  
+
+        fullPath = txtOrigen ;
+
+        Origen_ ();  
+        Procesar();
+
+    }else {
+        JOptionPane.showMessageDialog(null, " Ingrese la cantidad de suscripciones a procesar. ", " Boleta Electrónica ", JOptionPane.ERROR_MESSAGE);  
+    }      
+
+}    
 
 public void Procesar() {
      
@@ -293,41 +276,36 @@ public void Procesar() {
      
       
       
-        String nombreArchivoGenerado = String.format ("%s-Parte-%s.csv", txtDestino, cantidadArchivosGenerados);              
+        String nombreArchivoGenerado = String.format ("%s-Parte-%s.csv", Npath, cantidadArchivosGenerados);   
+        
+       ExisteNombre(nombreArchivoGenerado);
+       
        // String nombreArchivoCsv = String.format("%s %s",directorioDestino, nombreArchivoGenerado);          
        
        
         
         //////////////////////////////////////////////////////////////////////////////////
-       
-            CarpetaDestino = Escritorio;    //l carpeta destino en "Local" es el escritorio.    
 
             if (Local == true)
             {
-                
-                
-               ArgumentoOpcionCheck1 =  CarpetaDestino + "\\" + nombreArchivoGenerado;
+
+               ArgumentoOpcionCheck1 =  Escritorio + "\\" + nombreArchivoGenerado;
                ArgumentoOpcionCheck2 = fullPath + "-Informe.txt";
                
-          
             }
             else if (Red == true)
             {
                 ArgumentoreaderNuevo = directorioDestino + "\\" + nombreArchivoGenerado;
                 ArgumentoOpcionCheck1 = ArgumentoreaderNuevo;
-                ArgumentoOpcionCheck2 = directorioDestino + "\\" + txtDestino + "-Informe.txt";
-                
-   
-                
+                ArgumentoOpcionCheck2 = directorioDestino + "\\" + Npath + "-Informe.txt";
+        
              System.out.println ("-------------------------XXXX----------" + ArgumentoOpcionCheck1);
             }
  
          ////////////////////////////////////////////////////////////////////////////////
         
-        
-
         try{
-            SW = new FileWriter(Hard,true);  // ArgumentoOpcionCheck1
+            SW = new FileWriter(ArgumentoOpcionCheck1,true);   
         } catch (Exception e){System.out.println("Error de lectura del fichero 1");}
         JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + Hard);
        
@@ -408,7 +386,7 @@ public void Procesar() {
 
                                 
                                 
-                                nombreArchivoGenerado = String.format("%s-Parte-%s.csv", txtDestino, cantidadArchivosGenerados);
+                                nombreArchivoGenerado = String.format("%s-Parte-%s.csv", Npath, cantidadArchivosGenerados);
                                 //nombreArchivoCsv = String.format("%s %s", directorioDestino, nombreArchivoGenerado);
                                 
                                 
@@ -420,13 +398,10 @@ public void Procesar() {
                                     
                                     ArgumentoOpcionCheck1 = CarpetaDestino + "\\" + nombreArchivoGenerado;
                                     
-                                    
-
                                 }
                                 else if (Red == true)
                                 {
                                     
-                                   
                                   ArgumentoreaderNuevo = directorioDestino + "\\" + nombreArchivoGenerado;
                                   ArgumentoOpcionCheck1 = ArgumentoreaderNuevo;
 
@@ -436,7 +411,7 @@ public void Procesar() {
                                 
 
                                 try {
-                                    SW = new FileWriter(Hard, true);
+                                    SW = new FileWriter(ArgumentoOpcionCheck1, true);
                                 } catch (Exception e) {
                                     System.out.println("Error de lectura del fichero 3");
                                     JOptionPane.showMessageDialog(null, "Error de lectura del fichero 3");
@@ -560,6 +535,75 @@ public void Procesar() {
     //Origen_.setEnabled(true);
     System.out.println("Lineas erroneas: " + conterror);
 } 
+public String ExisteNombre(String Nombre){
+    String Nom = Nombre; 
+    File Fuente = new File(Escritorio);
+    File[] ficheros = Fuente.listFiles();
+    byte[] buffer = new byte[1024];
+    
+
+   if (Fuente.isDirectory()) {
+
+            for (int k = 0; k < ficheros.length; k++) {La idea seria que agrege un numero al nombre del archivo. 
+
+                if (ficheros[k].getName().contains("Parte")) { //se busca el archivo con nombre de zip.
+
+                    for (int l = ficheros[k].getName().length(); l > -1; l--){
+
+                  
+                        if ((ficheros[k].getName().charAt(l-1)) == ')') { //Busca el parentesis------charAt mide contando el cero. Por eso se resta uno. Length arranca en el 1. 
+
+                            int temp2 = l ;
+
+                        ///Medir distancia entre parentesis
+                            while (ficheros[k].getName().charAt(temp2-2) != '('){
+                                contParentesis++;
+                                temp2--;
+                            }
+
+                            temp2 = l; 
+
+                        /// Tomar elementos ENTRE los parentesis
+                            while (cont2 <= contParentesis) {
+
+                                tempS += (ficheros[k].getName().charAt(temp2 - 2)) ;
+
+                                temp2--;
+                                cont2++;
+                            }
+
+                        /// Voltear numero dentro de los parentesis
+                            if (contParentesis >1){ 
+
+                                for (int n = tempS.length() - 1; n > -1; n--) {
+
+                                  tempS2 += tempS.charAt(n);
+                                }
+                            }else {tempS2 = tempS;}
+
+                            tempN =  Integer.valueOf (tempS2);
+                            tempS2 = "";
+                            tempS = "";
+                            temp2 = 0; 
+                            cont2 = 1;
+                            contParentesis = 0 ;
+
+                        ///Seleccion del número mas grande entre los zips.
+
+                            if (contzip < tempN){contzip = tempN;}
+                            //System.out.println("--------------->: " + ficheros[k].getName().charAt(l - 2));
+                            break;
+
+                        }  
+                    }
+                }
+            }
+
+
+
+
+return Nombre;
+}
 
 public void OpcionDeZipeado() throws IOException{
     
@@ -681,7 +725,7 @@ public void InformarArchivosGenerados() throws FileNotFoundException, IOExceptio
             String ex = ".csv";
             String ex2 = ".txt";
             
-           if ((ficheros[i].getName().contains(txtDestino)) && (ficheros[i].length()!= size1 )) { 
+           if ((ficheros[i].getName().contains(Npath)) && (ficheros[i].length()!= size1 )) { 
                  
              
                 for (int j = 0; j < ficheros[i].getName().length(); j++) {
@@ -743,7 +787,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
 
         for (int j = 0; j < ficheros.length; j++) {
     
-           if ( (ficheros[j].getName().contains(txtDestino)) && (ficheros[j].length()!= size1 ) ) {  { 
+           if ( (ficheros[j].getName().contains(Npath)) && (ficheros[j].length()!= size1 ) ) {  { 
                
                if (ficheros[j].getName().contains(".zip")){/* XD */ } else{
                   cont++;
@@ -776,7 +820,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
         String ex = ".csv";
         String ex2 = ".txt";
         
-        if ((ficheros[i].getName().contains(txtDestino)) && (ficheros[i].length()!= size1 )) { 
+        if ((ficheros[i].getName().contains(Npath)) && (ficheros[i].length()!= size1 )) { 
           
             for (int j = 0; j < ficheros[i].getName().length(); j++) { 
             
@@ -869,7 +913,6 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
                             break;
 
                         }  
- 
                     }
                 }
             }
@@ -880,13 +923,13 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
          
         if (Local == true){
 
-            nombreDeZip = txtDestino + "_("+ contzip +").zip" ;
+            nombreDeZip = Npath + "_("+ contzip +").zip" ;
             zipFile = new File(CarpetaDestino + "\\" + nombreDeZip);
            
         }
         else if (Red == true){
 
-            nombreDeZip = txtDestino + "_("+ contzip +").zip" ;
+            nombreDeZip = Npath + "_("+ contzip +").zip" ;
             zipFile = new File(directorioDestino + "\\" +  nombreDeZip);
             
         }
@@ -931,9 +974,10 @@ private void LeerLinea(String line){
    // JOptionPane.showMessageDialog(null,"---Impuesto: " + Impuesto);
     
     switch (Impuesto)
+      
     {
-        case "1": //Impuesto Automotor
-        case "2": //Impuesto a las Embarcaciones
+        case "Impuesto Automotor":
+        case "Impuesto a las Embarcaciones":
         {
                         
             mail = ((line.substring(0, 255).toLowerCase()).replaceAll(" ","") );
@@ -942,15 +986,13 @@ private void LeerLinea(String line){
             razonsocial = trimEnd(line.substring(266,326));   
             porcentaje = "";  
             fechaVencimientoNumero = (line.substring(334, 344).replaceAll(" ",""));                        
- //           fechaVencimiento = StringaDate(fechaVencimientoNumero); 
+            fechaVencimiento = StringaDate(fechaVencimientoNumero); 
             montoCuota = line.substring(345, 362).replaceAll(" ","") ;
             montoAnual = line.substring(362, 378) ;
             codigoElectronico = line.substring(378, 392).replaceAll(" ","");
             debitoCredito = line.substring(392, 393).replaceAll(" ","");                           
             buenContribuyente = line.substring(393, 394).replaceAll(" ","");    
-            
-            
-            
+
             try{ 
             
             cuit = line.substring(394, 405).replaceAll(" ","");
@@ -973,23 +1015,20 @@ private void LeerLinea(String line){
 
               break;
         }
-        case "3": //Impuesto Urbano Edificado
-        case "4": // Impuesto Urbano Baldío
-        case "5": //Impuesto Rural
+        case "Impuesto Urbano Edificado":
+        case "Impuesto Urbano Baldío":
+        case "Impuesto Rural":
         {
                        
              
             
             mail = ((line.substring(0, 255).toLowerCase()).replaceAll(" ","") );
-            
-            
-            System.out.println("------------------->>>>>"+mail);
             objeto = (line.substring(255,266).replaceAll(" ",""));          
             objetoFormateado = formatearObjetoInmobiliario(objeto);
             razonsocial = trimEnd(line.substring(266,326));   
             porcentaje = "";  
             fechaVencimientoNumero = (line.substring(334, 344).replaceAll(" ",""));                        
-//            fechaVencimiento = StringaDate(fechaVencimientoNumero); 
+            fechaVencimiento = StringaDate(fechaVencimientoNumero); 
             montoCuota = line.substring(345, 362).replaceAll(" ","") ;
             montoAnual = line.substring(362, 378) ;
             // codigoElectronico = line.substring(378, 392).replaceAll(" ","");
@@ -1016,9 +1055,12 @@ private void LeerLinea(String line){
                                     
               break;
         }
-        case "6":// Impuesto Complementario
+        case "Impuesto Complementario":
         {
+
              LeerLineaNuevo(line);
+             
+           
               break;
         }
         default:
@@ -1041,7 +1083,7 @@ private void LeerLineaNuevo(String line){
          anio = (line.substring(194,198).replaceAll(" ",""));
          cuota = (line.substring(198,200).replaceAll(" ",""));
          fechaVencimientoNumero = (line.substring(200, 210).replaceAll(" ",""));                        
-//         fechaVencimiento = StringaDate(fechaVencimientoNumero); 
+         fechaVencimiento = StringaDate(fechaVencimientoNumero); 
          montoCuota = line.substring(210, 227).replaceAll(" ","") ;
          montoAnual = line.substring(227, 244) ;
          debitoCredito = line.substring(244, 245).replaceAll(" ","");                                                  
@@ -1126,6 +1168,9 @@ private void ArmarDatosMail(){
             case "C":
                     {
                         medioPago = "<a href=\"" + URLText + objeto + "\">Ingresar</a>";
+                        System.out.println("urltext tiene el valor: "+URLText);
+                        
+                        
                         QRString1="https://qrcode.tec-it.com/API/QRCode?data="+URLText+ objeto;
                         QRString2 = "<td><img src= " + QRString1 + " height='100' width='100'></td>";
                        
@@ -1232,48 +1277,32 @@ private void ArmarDatosMail(){
 
     public void ImpuestoComboBox(String Imp) {
        
-     /*   
-        
-     
+
         switch (Imp){
-            
         case "1": 
-        {
-            Impuesto="Impuesto Automotor";
-             break;
-        }
+        {Impuesto="Impuesto Automotor";
+            break;}
         case "2": 
-        {
-            Impuesto="Impuesto a las Embarcaciones";
-             break;
-        }
+        {Impuesto="Impuesto a las Embarcaciones";
+            break;}
         case "3": 
-        {
-            Impuesto="Impuesto Urbano Edificado";
-             break;
-        }
+        {Impuesto="Impuesto Urbano Edificado";
+            break;}
         case "4": 
-        {
-            Impuesto="Impuesto Urbano Baldío";
-              break;
-        }
+        {Impuesto="Impuesto Urbano Baldío";
+            break;}
         case "5": 
-        {
-            Impuesto="Impuesto Rural";
-             break;
-        }
+        {Impuesto="Impuesto Rural";
+            break;}
         case "6":
-        {
-            Impuesto="Impuesto Complementario";
-            break;
-        }
+        {Impuesto="Impuesto Complementario";
+            break;}
         default:
-        { 
-            break;
+        { break;
         }           
         }
 
-       */
+      
         directorioOrigen = ""; 
         FraccionImpuesto = Impuesto;
         
@@ -1296,7 +1325,7 @@ private void ArmarDatosMail(){
 
         //List<String> cuotas = new List<String>();
 
-
+        System.out.println("XXXXllllllllllllllllllll  Fraccion impuesto: :   "+FraccionImpuesto);
         switch (FraccionImpuesto)
         {
             case "Impuesto Automotor":
@@ -1338,6 +1367,7 @@ private void ArmarDatosMail(){
                     nombreImpuesto = "Baldio";
                     impuestoLiquidar = "0";
                     URLText1 =("https://www.arba.gov.ar/Aplicaciones/Liquidacion.asp?imp=0&opc=LIC&oi=");
+                    
                     break;
                 }
             case "Impuesto Rural":
@@ -1379,7 +1409,7 @@ private void ArmarDatosMail(){
     
 public String  GetURL(){
 
-
+System.out.println("valor valor valor "+ URLText1);
  return URLText1 ;
 
 
@@ -1403,7 +1433,7 @@ public String  GetURL(){
  public static String trimEnd(String value) {
         return value.replaceFirst("\\s+$", "");
     }
- /*   
+  
  public static String StringaDate(String fechaCadena){
         
        int anio, mes, dia;
@@ -1430,7 +1460,7 @@ public String  GetURL(){
     
     }
     
- */
+
  public String MyReplace(String Val3, String Val4){
      
         String resultado = "";
@@ -1512,7 +1542,7 @@ public String  GetURL(){
  
  
  
- public String ObtenerNombre(String nom){
+ /*public String ObtenerNombre(String nom){
 
     String name = "";
     String Navn = "";
@@ -1536,7 +1566,7 @@ public String  GetURL(){
         return Navn;
      }
      
- /*
+ 
  public String ObtenerPath(String nom){   
     
     int cont = 0;
