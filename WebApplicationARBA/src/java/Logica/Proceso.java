@@ -51,7 +51,7 @@ import java.util.Locale;
  * 
  * 
  * 
- *   // JOptionPane.showMessageDialog(null, cantidad);
+ *   // JOptionPane.showMessageDialog(null, "...");
  */
 public class Proceso {       
     
@@ -149,11 +149,8 @@ public class Proceso {
     Boolean Local = false; 
     Boolean Red = false;
     String Npath ="";
-    String Hard = "C:\\Users\\oscar.avendano\\Desktop\\10.txt-Parte-1.csv"; 
-            
-                //"C:\\Users\\sehent\\Desktop\\10.txt-Parte-1.csv"; 
-    
-    
+    int cantidadArchivosGenerados = 1;
+    String nombreArchivoGenerado = ""; 
     String Escritorio = System.getProperty("user.home") + "\\desktop";
 
 public void Origen_ () {
@@ -214,13 +211,28 @@ public void Generar(String cantSubscrip,String Corte, String Fecha, String Check
         fullPath = txtOrigen ;
 
         Origen_ ();  
-        Procesar();
+        Nambrar (); 
 
     }else {
         JOptionPane.showMessageDialog(null, " Ingrese la cantidad de suscripciones a procesar. ", " Boleta Electrónica ", JOptionPane.ERROR_MESSAGE);  
     }      
 
 }    
+
+public void Nambrar () {
+   
+   nombreArchivoGenerado = String.format ("%s-Parte-%s.csv", Npath, cantidadArchivosGenerados);   
+   
+  boolean GO =  VerificarPrevio(nombreArchivoGenerado);
+       
+  if (GO){
+      JOptionPane.showMessageDialog(null, "Ya existe un elemento creado con este nombre.\n Puede Presionar boton 'Limpiar File' para \n cambiar a otro archivo.");
+  }else if (GO == false){
+    Procesar();
+  }
+   
+}
+
 
 public void Procesar() {
      
@@ -242,7 +254,7 @@ public void Procesar() {
         int conta = 0;
         int contador = 0;        
         int escritos = 0;
-        int cantidadArchivosGenerados = 1;
+        
         int cantidadCorte = Integer.parseInt(Corte);
         Long Lineas = 0L; 
         String line = "" ;
@@ -260,29 +272,9 @@ public void Procesar() {
         BufferedWriter br = null; 
         
 
-       /* try {
-            Date fecha1 = Date(Fecha);
-            DateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-            String fecha2 = f.format(fecha1);
-
-            fechaOpcion = StringaDate(fecha2);
-
-        } catch (Exception e) {}*/
-         
       fechaOpcion = Fecha;
               
-      
-      
-     
-      
-      
-        String nombreArchivoGenerado = String.format ("%s-Parte-%s.csv", Npath, cantidadArchivosGenerados);   
-        
-       ExisteNombre(nombreArchivoGenerado);
-       
-       // String nombreArchivoCsv = String.format("%s %s",directorioDestino, nombreArchivoGenerado);          
-       
-       
+    
         
         //////////////////////////////////////////////////////////////////////////////////
 
@@ -307,7 +299,7 @@ public void Procesar() {
         try{
             SW = new FileWriter(ArgumentoOpcionCheck1,true);   
         } catch (Exception e){System.out.println("Error de lectura del fichero 1");}
-        JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + Hard);
+        //JOptionPane.showMessageDialog(null, "Error de lectura del fichero 1: ---" + Hard);
        
          ContadorCSV++;
         
@@ -337,7 +329,7 @@ public void Procesar() {
        
               LeerLinea(line);
               
-              JOptionPane.showMessageDialog(null,"mail------"+ mail);
+              //JOptionPane.showMessageDialog(null,"mail------"+ mail);
               
                 if (mailAux == "") {
                     mailAux = mail;
@@ -535,75 +527,50 @@ public void Procesar() {
     //Origen_.setEnabled(true);
     System.out.println("Lineas erroneas: " + conterror);
 } 
-public String ExisteNombre(String Nombre){
-    String Nom = Nombre; 
-    File Fuente = new File(Escritorio);
-    File[] ficheros = Fuente.listFiles();
-    byte[] buffer = new byte[1024];
+
+
+public boolean VerificarPrevio(String Nombre){
     
+////Primero ver donde fijarse: 
 
-   if (Fuente.isDirectory()) {
+String Workspace= "";
 
-            for (int k = 0; k < ficheros.length; k++) {La idea seria que agrege un numero al nombre del archivo. 
+       if (Local == true){
 
-                if (ficheros[k].getName().contains("Parte")) { //se busca el archivo con nombre de zip.
+           Workspace= Escritorio; 
+           
+        }
+        else if (Red == true){
 
-                    for (int l = ficheros[k].getName().length(); l > -1; l--){
+           Workspace= directorioDestino;
+            
+        }
+ // Luego :    verificar si nombre ya existe allí: 
+ 
+    String Nom = Nombre; 
+    File Esq = new File(Workspace);
+    File[] archivos = Esq.listFiles();
+    byte[] buffer = new byte[1024];
+    boolean respuesta = false; 
+    String Arch = (Npath + "_"); 
 
-                  
-                        if ((ficheros[k].getName().charAt(l-1)) == ')') { //Busca el parentesis------charAt mide contando el cero. Por eso se resta uno. Length arranca en el 1. 
+   if (Esq.isDirectory()) {
 
-                            int temp2 = l ;
+            for (int k = 0; k < archivos.length; k++) {
 
-                        ///Medir distancia entre parentesis
-                            while (ficheros[k].getName().charAt(temp2-2) != '('){
-                                contParentesis++;
-                                temp2--;
-                            }
+                if (archivos[k].getName().contains(Arch)) { //se busca el archivo con nombre de csv.
 
-                            temp2 = l; 
+                    respuesta = true; 
 
-                        /// Tomar elementos ENTRE los parentesis
-                            while (cont2 <= contParentesis) {
-
-                                tempS += (ficheros[k].getName().charAt(temp2 - 2)) ;
-
-                                temp2--;
-                                cont2++;
-                            }
-
-                        /// Voltear numero dentro de los parentesis
-                            if (contParentesis >1){ 
-
-                                for (int n = tempS.length() - 1; n > -1; n--) {
-
-                                  tempS2 += tempS.charAt(n);
-                                }
-                            }else {tempS2 = tempS;}
-
-                            tempN =  Integer.valueOf (tempS2);
-                            tempS2 = "";
-                            tempS = "";
-                            temp2 = 0; 
-                            cont2 = 1;
-                            contParentesis = 0 ;
-
-                        ///Seleccion del número mas grande entre los zips.
-
-                            if (contzip < tempN){contzip = tempN;}
-                            //System.out.println("--------------->: " + ficheros[k].getName().charAt(l - 2));
-                            break;
-
-                        }  
-                    }
                 }
             }
 
-
-
-
-return Nombre;
+        }
+   
+   return respuesta; 
+   
 }
+
 
 public void OpcionDeZipeado() throws IOException{
     
@@ -649,9 +616,6 @@ public void OpcionDeZipeado() throws IOException{
 
 
 
-
-
-
 public void InformarArchivosGenerados() throws FileNotFoundException, IOException{
  
     if (Local == true)
@@ -689,13 +653,13 @@ public void InformarArchivosGenerados() throws FileNotFoundException, IOExceptio
         zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
         int len;
 
-      
+       String Arch = (Npath + "-");
         
         if (Fuente.isDirectory()) {
 
             for (int j = 0; j < ficheros.length; j++) {
 
-                if (ficheros[j].getName().contains(".zip")){/* XD */ } else{
+                if (ficheros[j].getName().contains(Arch)){
                     
                     input = new FileInputStream(ficheros[j]);
                     zipOut.putNextEntry(new ZipEntry(ficheros[j].getName())); //Fuente.getName() + File.separator + 
@@ -719,17 +683,21 @@ public void InformarArchivosGenerados() throws FileNotFoundException, IOExceptio
        
         //////////////////////////Borrador: 
 
-        
+
      for (int i = 0; i < ficheros.length; i++) {
             String extension = "";
             String ex = ".csv";
             String ex2 = ".txt";
             
-           if ((ficheros[i].getName().contains(Npath)) && (ficheros[i].length()!= size1 )) { 
+           if ( ficheros[i].getName().contains(Arch) ){ //&& (ficheros[i].length()!= size1
                  
-             
+              ficheros[i].delete();
+              
+              /*
                 for (int j = 0; j < ficheros[i].getName().length(); j++) {
+
                     if (ficheros[i].getName().charAt(j) == '.') {
+                        
                         extension = ficheros[i].getName().substring(j, (int) ficheros[i].getName().length());
                         if (extension.equals(ex)) {
                             if (ficheros[i].delete()) {
@@ -745,7 +713,7 @@ public void InformarArchivosGenerados() throws FileNotFoundException, IOExceptio
                             }
                         }
                     }
-                }
+                }*/
             }
         }
     }
@@ -765,7 +733,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
     /////////////////////////*/
 
 
-    File Fuente = new File(CarpetaDestino); //fullpath
+    File Fuente = new File(Escritorio); //fullpath
     File[] ficheros = Fuente.listFiles();
     byte[] buffer = new byte[1024];
     
@@ -780,6 +748,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
     ZipOutputStream zipOut = null;
     zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
     
+    String Arch = (Npath + "-");
    
     int len;
 
@@ -787,9 +756,9 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
 
         for (int j = 0; j < ficheros.length; j++) {
     
-           if ( (ficheros[j].getName().contains(Npath)) && (ficheros[j].length()!= size1 ) ) {  { 
+           if ( (ficheros[j].getName().contains(Arch) )   ) {  { // no introducir el Archivo original
                
-               if (ficheros[j].getName().contains(".zip")){/* XD */ } else{
+               if (ficheros[j].getName().contains(".zip")){/* XD */ } else{ //no introducir el Zip. 
                   cont++;
                   
                     input = new FileInputStream(ficheros[j]);
@@ -812,7 +781,6 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
     zipOut.close();
     
     ////////Borrador: 
-    
 
     for (int i = 0; i < ficheros.length; i++) {
         
@@ -820,8 +788,14 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
         String ex = ".csv";
         String ex2 = ".txt";
         
-        if ((ficheros[i].getName().contains(Npath)) && (ficheros[i].length()!= size1 )) { 
-          
+        if (ficheros[i].getName().contains(Arch)) { // && (ficheros[i].length()!= size1 )
+         
+            
+            ficheros[i].delete();
+                  
+                            
+                  
+          /*        
             for (int j = 0; j < ficheros[i].getName().length(); j++) { 
             
                 
@@ -842,7 +816,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
                         }
                     }
                 }
-            }
+            }*/
         }
     }
  }    
@@ -851,7 +825,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
     
 }
 
-   public File VerificarZipPrevio(File Fuente, File[] ficheros, File zipFile ){ 
+   public File VerificarZipPrevio(File Fuente, File[] ficheros, File zipFile ){ // verificar y crear nombre nuevo
 
         int tempN = 0 ;
         String tempS = "";
@@ -924,7 +898,7 @@ public void  InformarArchivosGenerados_Original() throws FileNotFoundException, 
         if (Local == true){
 
             nombreDeZip = Npath + "_("+ contzip +").zip" ;
-            zipFile = new File(CarpetaDestino + "\\" + nombreDeZip);
+            zipFile = new File(Escritorio + "\\" + nombreDeZip);
            
         }
         else if (Red == true){
@@ -1307,7 +1281,7 @@ private void ArmarDatosMail(){
         FraccionImpuesto = Impuesto;
         
                // directorioOrigen =  
-        directorioDestino = "C:\\Users\\sehent\\Documents\\Destino";
+        directorioDestino = "\\\\arba.gov.ar\\DE\\GGTI\\Gerencia de Produccion\\Mantenimiento\\Boleta Electronica\\Destino";   
         
         
         
@@ -1401,9 +1375,10 @@ private void ArmarDatosMail(){
 /*  if(FraccionImpuesto != ""){
         Origen_.setEnabled(true);
         }
+*/  
 
         directorioDestino += "Destino2022";
-*/          
+        
     }  
 
     
